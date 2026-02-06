@@ -34,7 +34,7 @@ function extractMessage(payload: unknown): string | undefined {
   }
   if (Array.isArray(msg) && msg.every((x) => typeof x === "string")) {
     const joined = msg.filter((x) => x.trim()).join("; ");
-    return joined || undefined;
+    return joined ?? undefined;
   }
   return undefined;
 }
