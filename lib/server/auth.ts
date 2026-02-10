@@ -1,11 +1,11 @@
-import "server-only";
-import { apiFetch } from "@/lib/server/apiFetch";
+import 'server-only';
+import { apiFetch } from '@/lib/server/apiFetch';
 import {
   clearAccessToken,
   getAccessToken,
   setAccessToken,
-} from "@/lib/server/cookies";
-import { ApiError } from "@/lib/shared/apiError";
+} from '@/lib/server/cookies';
+import { ApiError } from '@/lib/shared/apiError';
 export type UserResponse = {
   id: string;
   email: string;
@@ -20,8 +20,8 @@ export async function register(params: {
   email: string;
   password: string;
 }): Promise<UserResponse> {
-  const res = await apiFetch<AuthTokenResponse>("/auth/register", {
-    method: "POST",
+  const res = await apiFetch<AuthTokenResponse>('/auth/register', {
+    method: 'POST',
     body: { email: params.email, password: params.password },
   });
   await setAccessToken(res.accessToken);
@@ -31,8 +31,8 @@ export async function login(params: {
   email: string;
   password: string;
 }): Promise<UserResponse> {
-  const res = await apiFetch<AuthTokenResponse>("/auth/login", {
-    method: "POST",
+  const res = await apiFetch<AuthTokenResponse>('/auth/login', {
+    method: 'POST',
     body: { email: params.email, password: params.password },
   });
   await setAccessToken(res.accessToken);
@@ -44,7 +44,7 @@ export async function me(): Promise<UserResponse | null> {
     return null;
   }
   try {
-    const res = await apiFetch<{ user: UserResponse }>("/auth/me", { token });
+    const res = await apiFetch<{ user: UserResponse }>('/auth/me', { token });
     return res.user;
   } catch (err) {
     // Token invalide/expire -> on nettoie la session et on considere "logged out"
